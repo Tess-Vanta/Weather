@@ -93,7 +93,7 @@ body {
 
 .glass {
   height: 90%;
-  padding: 3% 10%;
+  padding: 5% 10%;
   text-align: center;
   color: black;
   background: rgba(255, 255, 255, 0.4);
@@ -163,12 +163,55 @@ body {
 
 @media only screen and (max-width: 600px) {
   .dashboard {
+    height: 70%;
+    flex-direction: column;
     justify-content: center;
+  }
+  .dashboard > * {
+    width: 50%;
+  }
+  #dropdown {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
   }
   .bottom h1 {
     font-size: 14px;
   }
   .bottom p {
     font-size: 32px;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .dashboard > * {
+    width: 70%;
+  }
+  .bottom {
+    margin: 5%;
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas:
+      "feels humidity"
+      "visibility wind";
+  }
+  .bottom > * {
+    margin-bottom: 5%;
+    height: 100px;
+    width: 100px;
+  }
+  .feels {
+    grid-area: feels;
+  }
+  .humidity {
+    grid-area: humidity;
+  }
+  .visibility {
+    grid-area: visibility;
+  }
+  .wind {
+    grid-area: wind;
   }
 }
