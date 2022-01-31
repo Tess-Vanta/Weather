@@ -13,6 +13,9 @@ var feels = document.querySelector(".feels");
 var humidity = document.querySelector(".humidity");
 var visibility = document.querySelector(".visibility");
 var wind = document.querySelector(".wind");
+var bottom = document.querySelector(".bottom");
+var dropdown = document.querySelector(".dropdown");
+var click = document.querySelector(".click");
 var months = [
   "January",
   "February",
@@ -38,6 +41,32 @@ var days = [
 ];
 const API_key = "39ae6b812f12824bf23fca1724f583b7";
 
+click.addEventListener("click", function () {
+  inputBox.value = click.innerHTML;
+  dropdown.style.display = "none";
+  inputBox.style.borderRadius = "50px";
+});
+
+inputBox.onfocus = function () {
+  inputBox.style.borderRadius = "10px 10px 0 0";
+  dropdown.style.display = "block";
+};
+
+document.addEventListener("click", function (evt) {
+  var isClicked = inputBox.contains(evt.target);
+  if (!isClicked) {
+    dropdown.style.display = "none";
+    inputBox.style.borderRadius = "50px";
+  }
+});
+
+inputBox.addEventListener("keyup", (evt) => {
+  if (inputBox.value.length != 0) {
+    dropdown.style.display = "none";
+    inputBox.style.borderRadius = "50px";
+  }
+});
+
 inputBox.addEventListener("keypress", (evt) => {
   if (evt.keyCode == 13) {
     var input = inputBox.value;
@@ -51,15 +80,14 @@ inputBox.addEventListener("keypress", (evt) => {
     inputBox.value = "";
   }
 });
+
 var img = new Image(1, 1);
 img.classList.add("icon");
 
 function display(weather) {
   console.log(weather);
-
   if (weather.cod == "404") {
     alert("Not a valid input");
-    brea;
   } else if (weather.cod == "400") {
     alert("Please enter a city");
   } else {
@@ -78,6 +106,7 @@ function display(weather) {
     var main = weather.weather[0].main;
     glass.style.opacity = 1;
     bg.style.backgroundImage = `url(./images/${main}.jpg)`;
+    document.body.style.backgroundImage = `url(./images/${main}.jpg)`;
     glass.prepend(img);
     var icono = weather.weather[0].icon;
     img.src = `http://openweathermap.org/img/wn/${icono}@2x.png`;
@@ -95,9 +124,18 @@ function display(weather) {
     } else {
       glass.style.color = "rgb(61, 61, 61)";
     }
+    if (
+      weather.weather[0].main == "Ash" ||
+      weather.weather[0].main == "Mist" ||
+      weather.weather[0].main == "Snow"
+    ) {
+      bottom.style.color = "rgb(61, 61, 61)";
+    } else {
+      bottom.style.color = "white";
+    }
     var b = new Date();
     var utc = b.getTime() + b.getTimezoneOffset() * 60000;
-    var nd = new Date(utc + (3600000 * weather.timezone) / 3600);
+    var nd = new Date(utc + 1000 * weather.timezone);
     var hr = nd.getHours();
     var min = nd.getMinutes();
     var suf = hr < 12 ? "<span>AM</span>" : "<span>PM</span>";
