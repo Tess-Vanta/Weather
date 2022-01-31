@@ -14,8 +14,23 @@ var humidity = document.querySelector(".humidity");
 var visibility = document.querySelector(".visibility");
 var wind = document.querySelector(".wind");
 var bottom = document.querySelector(".bottom");
-var dropdown = document.querySelector(".dropdown");
+var dropdown = document.querySelector("#dropdown");
 var click = document.querySelector(".click");
+var countries;
+
+if (localStorage.getItem("countries") === null) {
+  countries = [];
+} else {
+  countries = JSON.parse(localStorage.getItem("countries"));
+}
+if (countries.length !== 0) {
+  for (let i = 0; i < countries.length; i++) {
+    const list = document.createElement("option");
+    list.value = countries[i];
+    dropdown.appendChild(list);
+  }
+}
+
 var months = [
   "January",
   "February",
@@ -41,32 +56,6 @@ var days = [
 ];
 const API_key = "39ae6b812f12824bf23fca1724f583b7";
 
-click.addEventListener("click", function () {
-  inputBox.value = click.innerHTML;
-  dropdown.style.display = "none";
-  inputBox.style.borderRadius = "50px";
-});
-
-inputBox.onfocus = function () {
-  inputBox.style.borderRadius = "10px 10px 0 0";
-  dropdown.style.display = "block";
-};
-
-document.addEventListener("click", function (evt) {
-  var isClicked = inputBox.contains(evt.target);
-  if (!isClicked) {
-    dropdown.style.display = "none";
-    inputBox.style.borderRadius = "50px";
-  }
-});
-
-inputBox.addEventListener("keyup", (evt) => {
-  if (inputBox.value.length != 0) {
-    dropdown.style.display = "none";
-    inputBox.style.borderRadius = "50px";
-  }
-});
-
 inputBox.addEventListener("keypress", (evt) => {
   if (evt.keyCode == 13) {
     var input = inputBox.value;
@@ -86,11 +75,26 @@ img.classList.add("icon");
 
 function display(weather) {
   console.log(weather);
+
   if (weather.cod == "404") {
     alert("Not a valid input");
   } else if (weather.cod == "400") {
     alert("Please enter a city");
   } else {
+    if (localStorage.getItem("countries") === null) {
+      countries = [];
+    } else {
+      countries = JSON.parse(localStorage.getItem("countries"));
+    }
+
+    if (!countries.includes(weather.name)) {
+      countries.push(weather.name);
+      const list = document.createElement("option");
+      list.value = weather.name;
+      dropdown.appendChild(list);
+    }
+
+    localStorage.setItem("countries", JSON.stringify(countries));
     place.innerText =
       weather.sys.country != "undefined"
         ? weather.name + ", " + weather.sys.country

@@ -16,13 +16,14 @@ body {
   flex-direction: column;
   align-items: center;
   height: 100vh;
+  background: linear-gradient(to top right, rgb(94, 2, 122), rgb(18, 179, 190));
   background-size: cover;
 }
 
 #top {
   width: 100vw;
   height: 70vh;
-  background: linear-gradient(to top right, rgb(94, 2, 122), rgb(18, 179, 190));
+  background: rgb(255, 255, 255);
   box-shadow: rgba(100, 100, 111, 1) 0px 7px 29px 0px;
   display: flex;
   flex-direction: column;
@@ -33,45 +34,28 @@ body {
 .enter {
   width: 100vw;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.enter label {
+  width: 100%;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.enter input {
-  margin: 50px;
+.inputValue {
+  margin: 50px 0;
   height: 30px;
   width: 45%;
   font-size: 18px;
   padding: 20px;
-  color: rgb(61, 61, 61);
-  background: white;
+  color: white;
+  background: rgb(61, 61, 61);
   border: none;
   border-radius: 50px;
   outline: none;
   z-index: 1;
-}
-.dropdown {
-  width: 45%;
-  background: white;
-  padding-bottom: 10px;
-  top: 90px;
-  position: absolute;
-  display: none;
-  border-radius: 0 0 10px 10px;
-}
-
-.dropdown ul {
-  font-size: 18px;
-  list-style-type: none;
-  z-index: 100;
-}
-.dropdown ul li {
-  padding: 0 0 0 20px;
-}
-
-.dropdown ul li:hover {
-  background-color: lightgray;
 }
 
 .dashboard {
@@ -82,15 +66,10 @@ body {
   align-items: center;
 }
 .left {
-  color: white;
   height: 100%;
   width: 37.5%;
-}
-
-.border {
-  height: 100%;
   padding: 5%;
-  border: 1.5px solid white;
+  border: 1.5px solid black;
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -102,7 +81,7 @@ body {
 .right {
   height: 100%;
   width: 37.5%;
-  background-color: white;
+  background: linear-gradient(to top right, rgb(94, 2, 122), rgb(18, 179, 190));
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: 10px;
