@@ -15,7 +15,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: auto;
   background: linear-gradient(to top right, rgb(94, 2, 122), rgb(18, 179, 190));
   background-size: cover;
 }
